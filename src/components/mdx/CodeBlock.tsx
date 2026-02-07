@@ -1,6 +1,7 @@
 'use client';
 
 import { Pre, PreSingleLine } from '@lobehub/ui/mdx';
+import { Mermaid } from '@lobehub/ui';
 import { type FC, type PropsWithChildren } from 'react';
 
 const countLines = (str: string): number => {
@@ -33,6 +34,10 @@ const CodeBlock: FC<PropsWithChildren> = ({ children }) => {
   const code = useCode(children);
 
   if (!code) return;
+
+  if (code.lang === 'mermaid') {
+    return <Mermaid variant={'borderless'}>{code.content}</Mermaid>;
+  }
 
   if (code.isSingleLine) return <PreSingleLine language={code.lang}>{code.content}</PreSingleLine>;
 
